@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Apicación Web MariaDB{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 50px auto;">
+    <h2>Iniciar Sesión</h2>
+    
+    <form method="POST" action="{{ url_for('login') }}" style="margin-top: 20px;">
+        <div style="margin-bottom: 15px;">
+            <label>Usuario:</label>
+            <input type="text" name="username" required>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <label>Contraseña:</label>
+            <input type="password" name="password" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px;">
+            Entrar
+        </button>
+    </form>
+</div>
+{% endblock %}

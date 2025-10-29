@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ table_name }}{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 15px;">
+    <a href="{{ url_for('tables') }}" class="btn">← Volver</a>
+</div>
+
+<h2>Tabla: {{ table_name }}</h2>
+
+<form method="GET" action="{{ url_for('view_table', table_name=table_name) }}" style="margin: 20px 0;">
+    <input type="text" 
+           name="search" 
+           placeholder="Filtrar datos..." 
+           value="{{ search }}"
+           style="width: 100%;">
+</form>
+
+{% if columns %}
+<p>Se encontraron {{ rows|length }} registro(s)</p>
+
+<div style="overflow-x: auto;">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                {% for column in columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if rows %}
+                {% for row in rows %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    {% for column in columns %}
+                    <td>{{ row[column] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="{{ columns|length + 1 }}" style="text-align: center; color: #666; padding: 40px;">
+                        No se encontraron registros
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p style="text-align: center; padding: 40px; color: #666;">
+    No hay datos para mostrar
+</p>
+{% endif %}
+{% endblock %}

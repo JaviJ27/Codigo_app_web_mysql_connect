@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Tablas{% endblock %}
+
+{% block content %}
+<h2>Tablas de la Base de Datos</h2>
+
+<form method="GET" action="{{ url_for('tables') }}" style="margin: 20px 0;">
+    <input type="text" 
+           name="search" 
+           placeholder="Buscar tablas..." 
+           value="{{ search }}"
+           style="width: 100%;">
+</form>
+
+{% if tables %}
+<p>Se encontraron {{ tables|length }} tabla(s)</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre de la Tabla</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for table in tables %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ table }}</td>
+            <td>
+                <a href="{{ url_for('view_table', table_name=table) }}" class="btn btn-primary">
+                    Ver Contenido
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="text-align: center; padding: 40px; color: #666;">
+    No se encontraron tablas
+</p>
+{% endif %}
+{% endblock %}
